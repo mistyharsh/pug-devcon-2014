@@ -13,7 +13,8 @@ body {
 body {
     background-color: #222222;
     color: #FFFFFF;
-    font-family: "arial", "sans-serif";
+    font-family: "Lato", "arial", sans-serif;
+    letter-spacing: 1px;
 }
 
 .blue {
@@ -27,12 +28,11 @@ body {
 }
 
 .outer-circle {
-    background-color: rgba(0, 0, 0, 0);
 
     border-radius: 100px;
     width: 100px;
     height: 100px;
-    margin: 60px auto 0 auto;
+    margin: 24px auto 0 auto;
 }
 
 .outer-circle.fast-loop {
@@ -45,6 +45,12 @@ body {
 
     -webkit-animation: outerPulse 1s infinite ease-in;
     -moz-animation: outerPulse 1s infinite ease-in-out;
+}
+
+.outer-circle.medium-loop {
+    border: 20px solid rgba(0, 183, 229, 1);
+
+    -webkit-animation: outerFlip 1.8s infinite linear;
 }
 
 .outer-circle.slow-loop {
@@ -75,6 +81,12 @@ body {
 
     -moz-animation: innerPulse 1s infinite linear;
     -webkit-animation: innerPulse 1s infinite linear;
+}
+
+.inner-circle.medium-loop {
+    border: 10px solid #0073C7;
+
+    -webkit-animation: innerFlip 1.5s infinite linear;
 }
 
 .inner-circle.slow-loop {
@@ -185,11 +197,58 @@ body {
     }
 }
 
+@-webkit-keyframes outerFlip {
+    0% {
+        -webkit-transform: rotate3d(0, 1, 0, 0deg);
+    }
+
+    25% {
+        -webkit-transform: rotate3d(0, 1, 0, 90deg);
+    }
+
+    75% {
+        -webkit-transform: rotate3d(0, 1, 0, -180deg);
+    }
+
+    100% {
+        -webkit-transform: rotate3d(0, 1, 0, 0deg);
+    }
+
+}
+
+@-webkit-keyframes innerFlip {
+    0% {
+        -webkit-transform: rotate3d(0, 1, 0, 0deg);
+    }
+
+    25% {
+        -webkit-transform: rotate3d(0, 1, 0, 180deg);
+    }
+
+    75% {
+        -webkit-transform: rotate3d(0, 1, 0, -270deg);
+    }
+
+    100% {
+        -webkit-transform: rotate3d(0, 1, 0, 0deg);
+    }
+
+}
+
 /* cortana-loader ends */
 
 .center {
     text-align: center;
     font-size: 21px;
+}
+
+.welcome-message {
+    font-weight: 300;
+}
+
+h1.blue {
+    letter-spacing: 4px;
+    font-size: 64px;
 }
 
 .logo-container {
@@ -202,15 +261,34 @@ body {
     max-width: 100%;
 }
 
-.command-panel {
-    margin-top: 24px;
-}
-
 #cortana-command-input {
     padding: 12px;
     width: 300px;
     font-size: 21px;
-    border: 1px solid #2187e7;
+    vertical-align: middle;
+    border: none;
+}
+
+#cortana-command-input:focus {
+    outline: none;
+}
+
+.help-icon {
+    font-size: 32px;
+    font-weight: 700;
+    vertical-align: middle;
+    display: inline-block;
+    height: 100%;
+    color: #2187e7;
+    cursor: pointer;
+    background-color: #333333;
+    padding: 12px 18px;
+
+    -webkit-transition: all 0.4s ease-out 0;
+}
+
+.help-icon:hover {
+    background-color: #444444;
 }
 
 .clearfix:after {
@@ -221,9 +299,29 @@ body {
     height: 0;
 }
 
-.session, .sponsors, .speakers {
+.content-panel {
     max-width: 1260px;
     margin: 0 auto;
+    opacity: 1;
+    position: relative;
+}
+
+.panel-item {
+    position: absolute;
+    width: 100%;
+
+    display: none;
+
+    opacity: 0;
+    -webkit-transform: translate3d(0, 120px, 0);
+
+    -webkit-transition: all 0.8s ease-out 0;
+
+}
+
+.panel-item.active {
+    -webkit-transform: translate3d(0, 0, 0);
+    opacity: 1;
 }
 
 .session h2, .sponsors h2, .speakers h2 {
@@ -245,6 +343,8 @@ body {
 .track li {
     border-bottom: 1px solid rgba(200, 200, 200, 0.5);
     padding: 12px 0 12px 0;
+
+    -webkit-transition: all 0.4s ease-out 0;
 }
 
 .track li:hover {
@@ -300,6 +400,10 @@ body {
     max-height: 100%;
 }
 
+.speakers .author-name {
+    text-transform: uppercase;
+}
+
 
 /* Modal Dialog starts */
 .modal-dialog-fade {
@@ -309,6 +413,7 @@ body {
     top: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.7);
+    color: #222222;
 
     -webkit-perspective: 800px;
 
@@ -320,9 +425,9 @@ body {
 .modal-dialog {
     position: absolute;
 
-    width: 400px;
+    width: 500px;
     left: 50%;
-    margin-left: -200px;
+    margin-left: -250px;
 
     margin-top: 0px;
     min-height: 200px;
@@ -340,3 +445,54 @@ body {
     -webkit-transform: translate3d(0, 100px, 0);
     opacity: 1;
 }
+
+.modal-dialog .body {
+    padding: 0 0 60px 0;
+}
+
+.close-button {
+    position: absolute;
+    font-size: 16px;
+    font-weight: 700;
+    bottom: 12px;
+    right: 12px;
+    width: 120px;
+    padding: 8px;
+    background-color: #FFFFFF;
+    border: 2px solid #222222;
+    color: #222222;
+    cursor: pointer;
+    outline: none;
+
+    -webkit-transition: all 0.4s ease-out 0;
+}
+
+.close-button:hover {
+    background-color: #2187e7;
+    color: #FFFFFF;
+    border-color: #2187e7;
+}
+
+/* Modal Dialog ends */
+
+/* Help starts */
+
+.help-message ol {
+    margin: 12px 12px 12px 36px;
+}
+
+.help-message h3 {
+    padding: 12px;
+    background-color: #EFEFEF;
+}
+
+.help-message p {
+    padding-left: 12px;
+    font-style: italic;
+}
+
+.help-message a {
+    cursor: pointer;
+}
+
+/* Help ends */
