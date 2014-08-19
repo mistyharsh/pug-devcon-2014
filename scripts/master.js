@@ -10,24 +10,13 @@
         prefix,
         contentPanel,
         cortanaLoop,
+        transitionEndEvent,
         helpIcon;
 
     jQuery(document).ready(function ($) {
         "use strict";
 
-        // Pause initial loader and start grow shrink behavior
-//        setTimeout(function () {
-//
-//            $("#cortana-loader div")
-//                .removeClass("fast-loop")
-//                .addClass("slow-loop");
-//
-//            //ModalDialog.show();
-//
-//        }, 5000);
-
         cortanaLoop.start();
-
 
         // Handle cortana keypress event
         $("#cortana-command-input").keyup(function(event) {
@@ -56,6 +45,8 @@
             closeButton = null;
 
         $(function() {
+            var dialogEvents = null;
+
             fade = $(".modal-dialog-fade");
             dialog = fade.find(".modal-dialog");
             body = dialog.find(".body");
@@ -68,16 +59,19 @@
                 }
             });
 
-            dialog.on({
-                webkitTransitionEnd: function () {
-                    if(isOpen === false) {
-                        fade.hide();
-                    }
-                },
+            dialogEvents = {
                 click: function () {
                     return false;
                 }
-            });
+            };
+
+            dialogEvents[transitionEndEvent] = function () {
+                if(isOpen === false) {
+                    fade.hide();
+                }
+            };
+
+            dialog.on(dialogEvents);
 
             closeButton.on("click", function() {
                 if(isOpen) {
@@ -172,7 +166,7 @@
             sponsors = panel.find(".sponsors");
             speakers = panel.find(".speakers");
 
-            items.on("webkitTransitionEnd", function () {
+            items.on(transitionEndEvent, function () {
                 if (!$(this).hasClass("active")) {
                     $(this).hide();
                 }
@@ -243,5 +237,25 @@
         };
 
     })(jQuery);
+
+    transitionEndEvent = (function () {
+        function whichTransitionEvent() {
+            var t,
+                el = document.createElement('div'),
+                transitions = {
+                'transition':'transitionend',
+                'OTransition':'oTransitionEnd',
+                'MozTransition':'transitionend',
+                'WebkitTransition':'webkitTransitionEnd'
+            };
+
+            for(t in transitions) {
+                if( el.style[t] !== undefined ){
+                    return transitions[t];
+                }
+            }
+        }
+        return whichTransitionEvent();
+    })();
 
 })();
