@@ -165,6 +165,7 @@
             sessions = panel.find(".session");
             sponsors = panel.find(".sponsors");
             speakers = panel.find(".speakers");
+            venue = panel.find(".venue");
 
             items.on(transitionEndEvent, function () {
                 if (!$(this).hasClass("active")) {
@@ -195,6 +196,9 @@
             showSpeakers: function () {
                 show(speakers);
             },
+            showVenue: function () {
+                show(venue);
+            },
             show: function (text) {
                 switch(text) {
                     case "sessions":
@@ -207,6 +211,7 @@
                         this.showSpeakers();
                         break;
                     case "venue":
+                        this.showVenue();
                         break;
                 }
             },
