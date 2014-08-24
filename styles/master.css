@@ -455,6 +455,7 @@ body {
     position: fixed;
     right: 24px;
     top: 24px;
+    z-index: 10;
 }
 
 .register-now a {
@@ -503,7 +504,7 @@ h1.blue {
 }
 
 .social-icons {
-    position: fixed;
+    position: absolute;
     top: 24px;
     left: 24px;
 }
@@ -592,8 +593,44 @@ h1.blue {
     opacity: 1;
 }
 
+.day-selection a {
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #2187e7;
+    font-weight: 700;
+}
+
+.day-selection a.selected {
+    color: #FFFFFF;
+    cursor: default;
+}
+
+.day-selection span {
+    font-size: 48px;
+    vertical-align: sub;
+}
+
 .session h2, .sponsors h2, .speakers h2, .venue h2 {
     margin: 36px 0 0 0;
+}
+
+.keynote-list {
+    list-style: none;
+    width: 50%;
+    margin: auto;
+}
+
+.keynote-list .track-title {
+    text-transform: uppercase;
+}
+
+.keynote-list li {
+    border-top: 1px solid #777777;
+    padding: 12px 0;
+}
+
+.keynote-list li:last-of-type {
+    1border: none;
 }
 
 .track {
@@ -601,15 +638,13 @@ h1.blue {
     margin: 12px 1.587301% 0 1.587301%;
 
     border-top: 6px solid #2187e7;
-
     list-style: none;
-
     float: left;
 }
 
 .track li {
     border-bottom: 1px solid rgba(200, 200, 200, 0.5);
-    padding: 12px 0 12px 0;
+    padding: 12px;
 
     -webkit-transition: all 0.4s ease-out 0s;
     -moz-transition: all 0.4s ease-out 0s;
@@ -618,7 +653,7 @@ h1.blue {
 }
 
 .track li:hover {
-    background-color: rgba(88, 88, 88, 0.3);
+    background-color: rgba(88, 88, 88, 0.4);
 }
 
 .track .track-title {
@@ -633,12 +668,27 @@ h1.blue {
     text-decoration: underline;
 }
 
+.session .track {
+    background-color: #333333;
+}
+
+.sponsors .track {
+    width: 22.46031%;
+    margin: 12px 1.269841% 0 1.269841%;
+}
+
 .sponsors .track li {
     background-color: #FFFFFF;
+    padding: 0;
 }
 
 .sponsors .track li:hover {
     background-color: #EFEFEF;
+}
+
+.sponsors .track a {
+    display: block;
+    padding: 12px 0 12px 0;
 }
 
 .sponsors .track li img {
@@ -663,6 +713,8 @@ h1.blue {
 .speakers li div {
     max-width: 80%;
     margin: 0 auto;
+    height: 180px;
+    overflow: hidden;
 }
 
 .speakers li img {
@@ -671,7 +723,13 @@ h1.blue {
 }
 
 .speakers .author-name {
-    text-transform: uppercase;
+    margin-top: 8px;
+    font-size: 16px;
+    color: #FFFFFF;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 
@@ -704,6 +762,9 @@ h1.blue {
 
     margin-top: 0px;
     min-height: 200px;
+    max-height: 450px;
+
+    padding-bottom: 66px;
 
     background-color: #FFFFFF;
 
@@ -730,7 +791,8 @@ h1.blue {
 }
 
 .modal-dialog .body {
-    padding: 0 0 60px 0;
+    overflow: auto;
+    max-height: 450px;
 }
 
 .close-button {
@@ -772,19 +834,45 @@ h1.blue {
     background-color: #EFEFEF;
 }
 
+.help-message h4 {
+    padding: 0 12px;
+}
+
 .help-message p {
     padding-left: 12px;
     font-style: italic;
+}
+
+.help-message .author-desc {
+    font-style: normal;
 }
 
 .help-message a {
     cursor: pointer;
 }
 
+.help-message img {
+    max-width: 160px;
+    padding: 12px 0 0 12px;
+}
+
+.loader-message {
+    background: url('../resources/loader.gif');
+    width: 64px;
+    height: 64px;
+    background-size: cover;
+    margin: 0 auto;
+}
+
 /* Help ends */
 
 
 /* Media Queries start */
+@media screen and (max-width: 1080px) {
+    .speakers li div {
+        height: 160px;
+    }
+}
 
 @media screen and (max-width: 900px) {
 
@@ -802,6 +890,10 @@ h1.blue {
         display: inline-block;
     }
 
+    .keynote-list {
+        width: 75%;
+    }
+
     .track {
         width: 450px;
         float: none;
@@ -812,25 +904,32 @@ h1.blue {
         margin: 18px auto;
     }
 
+    .sponsors .track {
+        float: left;
+        width: 43.3333333%;
+        margin: 36px 3.3333333% 0 3.3333333%;
+    }
 
     .speakers li {
         margin: 12px 2.22222%;
         width: 20.55556%;
     }
 
-}
-
-@media screen and (max-width: 600px) {
-
-    .speakers li {
-        margin: 12px 3.3333%;
-        width: 26.666667%;
+    .speakers li div {
+        max-width: 90%;
+        height: 140px;
     }
 }
 
 @media screen and (max-width: 600px) {
-    .track {
+
+    .keynote-list, .track {
         width: 83.33333%;
+    }
+
+    .speakers li {
+        margin: 12px 3.3333%;
+        width: 26.666667%;
     }
 
     .modal-dialog {
@@ -843,8 +942,14 @@ h1.blue {
 
 @media screen and (max-width: 420px) {
 
-    .track {
+    .keynote-list, .track {
         width: 90%;
+    }
+
+    .sponsors .track {
+        float: none;
+        width: 70%;
+        margin: 36px auto 0 auto;
     }
 
     .speakers li {
@@ -860,6 +965,11 @@ h1.blue {
 }
 
 @media screen and (max-width: 360px) {
+
+    .sponsors .track {
+        width: 90%;
+    }
+
     #cortana-command-input {
         padding: 8px;
         vertical-align: middle;
