@@ -180,6 +180,7 @@
             "<li><a href='#' class='panel-link blue'>sponsors</a></li>" +
             "<li><a href='#' class='panel-link blue'>speakers</a></li>" +
             "<li><a href='#' class='panel-link blue'>venue</a></li>" +
+            "<li><a href='#' class='panel-link blue'>about</a></li>" +
             "</ol>" +
             "<p>Just type and hit enter</p>" +
             "</div>";
@@ -210,6 +211,7 @@
             sessions,
             sponsors,
             speakers,
+            about,
             venue;
 
         $(function () {
@@ -219,6 +221,7 @@
             sponsors = panel.find(".sponsors");
             speakers = panel.find(".speakers");
             venue = panel.find(".venue");
+            about = panel.find(".about");
 
             items.on(transitionEndEvent, function () {
                 if (!$(this).hasClass("active")) {
@@ -252,6 +255,9 @@
             showVenue: function () {
                 show(venue);
             },
+            showAbout: function () {
+                show(about);
+            },
             show: function (text) {
                 switch (text) {
                 case "sessions":
@@ -265,6 +271,9 @@
                     break;
                 case "venue":
                     this.showVenue();
+                    break;
+                case "about":
+                    this.showAbout();
                     break;
                 }
             },
